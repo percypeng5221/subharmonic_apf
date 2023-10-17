@@ -32,6 +32,6 @@ roslaunch turtlebot
 git clone
 catkin_make
 source devel/setup.bash
-roslaunch master_rad move.launch
+roslaunch subharmAPF move.launch
 ```
 
