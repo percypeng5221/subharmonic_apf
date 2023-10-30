@@ -27,6 +27,7 @@ V_K = config['V_K']
 MAX_LIDAR_DISTANCE = config['MAX_LIDAR_DISTANCE']
 DANGER_FORCE = LASER_A * LASER_K * math.exp(-LASER_K * DANGER_DISTANCE)
 USE_TRADITION = config['USE_TRADITION']
+STATUS = 0 # 0: initial status   1: clock wise    2: counter clock wise   
 
 if not USE_TRADITION:
     LASER_K = 1 / DANGER_DISTANCE / DANGER_DISTANCE
@@ -214,7 +215,7 @@ def evaluateLaser(msgScan, odomMsg1, x_goal, y_goal, xPoints, yPoints, plotFlag=
     Returns:
         list: list of values of the lasarField of each input point
     """
-    
+    global STATUS
     Values = []
     nextXpoints = []
     nextYpoints = []
@@ -234,15 +235,36 @@ def evaluateLaser(msgScan, odomMsg1, x_goal, y_goal, xPoints, yPoints, plotFlag=
         else: 
             Values.append(getDistance(nextXpoint, x_goal, nextYpoint, y_goal))
             useful_values.append(getDistance(nextXpoint, x_goal, nextYpoint, y_goal))
-    
-    for enum, value in enumerate(Values):
-        if value > 9000: continue
-        else: 
-            Values[enum] -= DISTANCE*5
-            break
         
-    # print(enum)
-    # print(Values.index(min(Values)))
+    if angleObs > 0: angleObs = angleObs - math.pi
+    elif angleObs < 0: angleObs = angleObs + math.pi
+    
+    distanceThresh = 0.3
+    angleThresh = 0.8
+    distance, _ = lidarScan(msgScan)
+    if min(distance) < distanceThresh and STATUS == 0:
+        if angleObs - angleTarget > 0 and angleObs - angleTarget < angleThresh:
+            STATUS = 1
+        elif angleObs - angleTarget < 0 and angleObs - angleTarget > -angleThresh:
+            STATUS = 2
+        
+    if abs(angleObs - angleTarget) > angleThresh and min(distance) > distanceThresh: STATUS = 0
+    
+    print(STATUS, angleObs, angleTarget, min(distance))
+    if STATUS == 2:
+        for enum, value in enumerate(Values):
+            if value > 9000: continue
+            else: 
+                Values[enum] -= DISTANCE*5
+                break
+        
+    if STATUS == 1:
+        for enum, value in reversed(list(enumerate(Values))):
+            if value > 9000: continue
+            else: 
+                Values[enum] -= DISTANCE*5
+                break
+
     
     if (plotFlag):
         print(Values)
@@ -283,6 +305,7 @@ def generatePoints(xPoint, yPoint, orientation, distance, num, plotFlag=False):
     Args:
         xPoint (float): the xPoint of the center 
         yPoint (float): the yPoint of the center 
+        orientation (float): the angle of robot to target
         distance (float): radius of the circle
         num (int): the number of the sample points
         plotFlag (bool, optional): whether to plot the field or not. Defaults to False.
