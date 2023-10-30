@@ -2,7 +2,7 @@ INIT_POSITIONS_X:
   first: 0.0 
 
 INIT_POSITIONS_Y:
-  first: 0.0
+  first: 3
 
 INIT_POSITIONS_THETA:
   first: 45
