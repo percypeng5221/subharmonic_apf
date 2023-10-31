@@ -2,26 +2,26 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 
-df = pd.read_excel('src/subharmAPF/data/result1 subharmonic, with sampling.xlsx')
+df = pd.read_excel('src/subharmonic_apf/data/result1 subharmonic, with sampling.xlsx')
 x_data1 = df['x']
 y_data1= df['y']
 
-df = pd.read_excel('src/subharmAPF/data/result1 subharmonic, without sampling.xlsx')
+df = pd.read_excel('src/subharmonic_apf/data/result1 subharmonic, without sampling.xlsx')
 x_data2 = df['x']
 y_data2= df['y']
 ob_data2=df['distance to obstacle']
 
-df = pd.read_excel('src/subharmAPF/data/result1 traditional, without sampling.xlsx')
+df = pd.read_excel('src/subharmonic_apf/data/result1 traditional, without sampling.xlsx')
 x_data3 = df['x']
 y_data3= df['y']
 ob_data3=df['distance to obstacle']
 
-df = pd.read_excel('src/subharmAPF/data/result1 traditional, with samping.xlsx')
+df = pd.read_excel('src/subharmonic_apf/data/result1 traditional, with samping.xlsx')
 x_data4 = df['x']
 y_data4 = df['y']
 ob_data4=df['distance to obstacle']
 
-df = pd.read_excel('src/subharmAPF/data/result2 traditional, with samping.xlsx')
+df = pd.read_excel('src/subharmonic_apf/data/result2 traditional, with samping.xlsx')
 ob_data1=df['distance to obstacle']
 
 

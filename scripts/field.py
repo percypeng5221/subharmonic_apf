@@ -2,9 +2,6 @@
 
 import rospkg
 import yaml
-rospack = rospkg.RosPack()
-packagePath = rospack.get_path('subharmAPF')
-
 import matplotlib.pyplot as plt
 import math
 import numpy as np
@@ -13,7 +10,7 @@ from Lidar import *
 from Control import *
 
 rospack = rospkg.RosPack()
-packagePath = rospack.get_path('subharmAPF')
+packagePath = rospack.get_path('subharmonic_apf')
 with open(packagePath + '/config.yaml', 'r') as file: config = yaml.safe_load(file)
 LASER_A = config['A_COEF']['LASER']
 
@@ -68,8 +65,8 @@ def lasarField(msgScan, odomMsg, plotFlag=False):
         
     if (plotFlag):
         # Show field!!!!!
-        x = np.linspace(-10, 10, 100) 
-        y = np.linspace(-10, 10, 100)
+        x = np.linspace(0, 4, 100) 
+        y = np.linspace(0, 4, 100)
         X, Y = np.meshgrid(x, y)
         Z = np.zeros((100, 100))
         
@@ -84,7 +81,7 @@ def lasarField(msgScan, odomMsg, plotFlag=False):
         
         surf = ax.plot_surface(X, Y, Z, cmap="Blues_r", cstride=1, rstride=1)
         fig.colorbar(surf)
-        plt.savefig("./picture/obstacle.png")
+        plt.savefig(packagePath+"/picture/obstacle.png")
         # plt.show()
         plt.close(fig)
         
@@ -101,6 +98,8 @@ def lasarField2(msgScan, odomMsg, xPoint, yPoint, plotFlag=False):
     Returns:
         force: magnitude of the repulsive force
         angle: angle of the repulsive force
+        obstacle_x: x coordinate of obstacle
+        obstacle_y: y coordinate of obstacle
     """
     # Get robot position and orientation
     theta = getRotation(odomMsg)
@@ -159,7 +158,7 @@ def lasarField2(msgScan, odomMsg, xPoint, yPoint, plotFlag=False):
         # plt.show()
         plt.close(fig)
         
-    return force, angle
+    return force, angle, obstacle_x, obstacle_y
 
 def targetField(targetX, targetY, odomMsg, plotFlag=False):
     """_summary_
@@ -222,7 +221,7 @@ def evaluateLaser(msgScan, odomMsg1, x_goal, y_goal, xPoints, yPoints, plotFlag=
     useful_values = []
     for i in range(len(xPoints)):
         tempOdom = createOdom(xPoints[i], yPoints[i], odomMsg1.pose.pose.orientation)
-        forceObs, angleObs = lasarField2(msgScan, odomMsg1, xPoints[i], yPoints[i])
+        forceObs, angleObs, obstacle_x, obstacle_y = lasarField2(msgScan, odomMsg1, xPoints[i], yPoints[i])
         # print(forceObs, angleObs)
         forceTarget, angleTarget = targetField(x_goal, y_goal, tempOdom)
         forceX = forceObs * math.cos(angleObs) + forceTarget * math.cos(angleTarget)
@@ -236,10 +235,10 @@ def evaluateLaser(msgScan, odomMsg1, x_goal, y_goal, xPoints, yPoints, plotFlag=
             Values.append(getDistance(nextXpoint, x_goal, nextYpoint, y_goal))
             useful_values.append(getDistance(nextXpoint, x_goal, nextYpoint, y_goal))
         
-    if angleObs > 0: angleObs = angleObs - math.pi
-    elif angleObs < 0: angleObs = angleObs + math.pi
+    angleObs = math.atan2((obstacle_y - odomMsg1.pose.pose.position.y), 
+                          (obstacle_x - odomMsg1.pose.pose.position.x))
     
-    distanceThresh = 0.3
+    distanceThresh = 0.15
     angleThresh = 0.8
     distance, _ = lidarScan(msgScan)
     if min(distance) < distanceThresh and STATUS == 0:
@@ -265,7 +264,6 @@ def evaluateLaser(msgScan, odomMsg1, x_goal, y_goal, xPoints, yPoints, plotFlag=
                 Values[enum] -= DISTANCE*5
                 break
 
-    
     if (plotFlag):
         print(Values)
         fig = plt.figure()

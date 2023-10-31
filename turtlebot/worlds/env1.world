@@ -88,10 +88,10 @@
       <heading_deg>0</heading_deg>
     </spherical_coordinates>
     <state world_name='default'>
-      <sim_time>51 55000000</sim_time>
-      <real_time>51 288304988</real_time>
-      <wall_time>1698698142 817884095</wall_time>
-      <iterations>51055</iterations>
+      <sim_time>56 248000000</sim_time>
+      <real_time>56 487928300</real_time>
+      <wall_time>1698714173 658203540</wall_time>
+      <iterations>56248</iterations>
       <model name='ground_plane'>
         <pose>0 0 0 0 -0 0</pose>
         <scale>1 1 1</scale>
@@ -102,21 +102,21 @@
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
-      <model name='wall_clone_0'>
-        <pose>2 2 0.5 0 -0 0</pose>
+      <model name='wall'>
+        <pose>1.7 2.1 0.500045 -0.000907 1e-06 0.7</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>2 2 0.5 0 -0 0</pose>
+          <pose>1.7 2.1 0.500045 -0.000907 1e-06 0.7</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
-      <model name='wall_clone_0_clone'>
-        <pose>2 2 0.5 0 -0 1.5708</pose>
+      <model name='wall_clone'>
+        <pose>2.2 1.6 0.500045 -0.000908 1e-06 0.899999</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>2 2 0.5 0 -0 1.5708</pose>
+          <pose>2.2 1.6 0.500045 -0.000908 1e-06 0.899999</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -126,7 +126,7 @@
         <pose>0 0 10 0 -0 0</pose>
       </light>
     </state>
-    <model name='wall_clone_0'>
+    <model name='wall'>
       <link name='link'>
         <inertial>
           <mass>100000</mass>
@@ -148,7 +148,7 @@
         <visual name='visual'>
           <geometry>
             <box>
-              <size>2.5 0.1 1</size>
+              <size>4 0.1 1</size>
             </box>
           </geometry>
           <material>
@@ -174,7 +174,7 @@
           <pose>0 0 0 0 -0 0</pose>
           <geometry>
             <box>
-              <size>2.5 0.1 1</size>
+              <size>4 0.1 1</size>
             </box>
           </geometry>
           <surface>
@@ -226,9 +226,9 @@
       </link>
       <static>0</static>
       <allow_auto_disable>1</allow_auto_disable>
-      <pose>2 2 0.5 0 -0 0</pose>
+      <pose>1.025 0.626785 0.500045 -0.000906 -0 1e-06</pose>
     </model>
-    <model name='wall_clone_0_clone'>
+    <model name='wall_clone'>
       <link name='link'>
         <inertial>
           <mass>100000</mass>
@@ -250,7 +250,7 @@
         <visual name='visual'>
           <geometry>
             <box>
-              <size>2.5 0.1 1</size>
+              <size>4 0.1 1</size>
             </box>
           </geometry>
           <material>
@@ -276,7 +276,7 @@
           <pose>0 0 0 0 -0 0</pose>
           <geometry>
             <box>
-              <size>2.5 0.1 1</size>
+              <size>4 0.1 1</size>
             </box>
           </geometry>
           <surface>
@@ -328,11 +328,11 @@
       </link>
       <static>0</static>
       <allow_auto_disable>1</allow_auto_disable>
-      <pose>2.50663 2.81213 0.5 0 -0 0</pose>
+      <pose>2.11772 1.49094 0.500045 -0.000906 0 0.7</pose>
     </model>
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose>0.871958 0.577046 7.96758 0 1.36313 1.14352</pose>
+        <pose>-1.25414 -1.69599 9.73307 0 1.11199 0.890962</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>

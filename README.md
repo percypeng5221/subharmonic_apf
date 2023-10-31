@@ -31,18 +31,18 @@ roslaunch turtlebot3_gazebo static_easy.launch
 1. Create your own workspace, (e.g. test_ws) and create a src inside. In the src folder, clone this repository.
 
 ```
-git clone https://github.com/percypeng5221/subharmAPF.git
+git clone https://github.com/percypeng5221/subharmonic_apf.git
 ```
 
 2. Compile and run this repository
 ```
 catkin_make
 source devel/setup.bash
-roslaunch subharmAPF move.launch
+roslaunch subharmonic_apf move.launch
 ```
 3. Play with the parameters
 
-Inside the subharmAPF folder, there's a config.yaml file. In this file there are a lot parameters to play with, including different path planning method(USE_TRADITION, USE_SAMPLE, ONLY_PLAN). 
+Inside the subharmonic_apf folder, there's a config.yaml file. In this file there are a lot parameters to play with, including different path planning method(USE_TRADITION, USE_SAMPLE, ONLY_PLAN). 
 
 You can use these parameters to reproduce the results in the paper.
 

@@ -7,7 +7,7 @@ from sensor_msgs.msg import LaserScan
 import rospkg
 import yaml
 rospack = rospkg.RosPack()
-packagePath = rospack.get_path('subharmAPF')
+packagePath = rospack.get_path('subharmonic_apf')
 with open(packagePath + '/config.yaml', 'r') as file: config = yaml.safe_load(file)
 MAX_LIDAR_DISTANCE = config['MAX_LIDAR_DISTANCE']
 COLLISION_DISTANCE = 0.14 # LaserScan.range_min = 0.1199999

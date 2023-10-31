@@ -3,7 +3,7 @@ import sys
 import rospkg
 import yaml
 rospack = rospkg.RosPack()
-packagePath = rospack.get_path('subharmAPF')
+packagePath = rospack.get_path('subharmonic_apf')
 sys.path.insert(0, packagePath+'/scripts')
 
 from openpyxl import Workbook,load_workbook
@@ -85,7 +85,7 @@ if __name__ == '__main__':
     while field.getDistance(odomMsg1.pose.pose.position.x, X_GOAL, odomMsg1.pose.pose.position.y, Y_GOAL) > REACH_GOAL:
         # rospy.sleep(0.2)
         time1 = rospy.get_time()
-        forceObs, angleObs = field.lasarField(msgScan1, odomMsg1)
+        forceObs, angleObs = field.lasarField(msgScan1, odomMsg1, False)
         forceTarget, angleTarget = field.targetField(X_GOAL, Y_GOAL, odomMsg1)
         forceX = forceObs * math.cos(angleObs) + forceTarget * math.cos(angleTarget) 
         forceY = forceObs * math.sin(angleObs) + forceTarget * math.sin(angleTarget)

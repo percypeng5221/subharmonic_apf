@@ -1,5 +1,5 @@
 INIT_POSITIONS_X:
-  first: 0.0 
+  first: 0.3
 
 INIT_POSITIONS_Y:
   first: 0.0
@@ -31,6 +31,6 @@ NUM_POINTS: 20
 V_K: 0.03
 REACH_GOAL: 0.1
 USE_TRADITION: False
-USE_SAMPLE: True
+USE_SAMPLE: False
 ONLY_PLAN: False
 DYNAMIC: False

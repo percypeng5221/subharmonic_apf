@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 import rospkg
 rospack = rospkg.RosPack()
-packagePath = rospack.get_path('subharmAPF')
+packagePath = rospack.get_path('subharmonic_apf')
 
 import yaml
 with open(packagePath + '/config.yaml', 'r') as file: config = yaml.safe_load(file)
